@@ -1,4 +1,5 @@
 using BuildingBlocks.Behaviors;
+using BuildingBlocks.Exceptions.Handler;
 using Catalog.API.Data;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -7,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var assembly = typeof(Program).Assembly;
+
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
 builder.Services.AddCarter();
 builder.Services.AddMediatR(config =>
 {
@@ -32,6 +36,8 @@ builder.Services.AddHealthChecks()
 
 
 var app = builder.Build();
+
+app.UseExceptionHandler(option => { });
 
 // Configure the HTTP request pipeline.
 app.MapCarter();

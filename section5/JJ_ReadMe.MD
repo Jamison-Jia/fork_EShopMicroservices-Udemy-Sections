@@ -49,6 +49,15 @@ public class StoreBasketCommandValidator : AbstractValidator<StoreBasketCommand>
 }
 
 ```
+### Global Exception handlers
+* Implement diff kinds of exceptions
+* Resgistry and use exception handlers in centain proj
+```
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+...
+app.UseExceptionHandler(option => { });
+...
+```
 
 
 ## CatalogApi
