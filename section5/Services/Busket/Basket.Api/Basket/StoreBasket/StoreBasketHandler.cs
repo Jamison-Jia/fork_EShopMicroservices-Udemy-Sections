@@ -1,4 +1,5 @@
-﻿using Basket.Api.Models;
+﻿using Basket.Api.Data;
+using Basket.Api.Models;
 using BuildingBlocks.CQRS;
 using FluentValidation;
 
@@ -16,14 +17,16 @@ public class StoreBasketCommandValidator : AbstractValidator<StoreBasketCommand>
         RuleFor(x => x.Cart.UserName).NotEmpty().WithMessage("UserName is required");
     }
 }
-    
-public class StoreBasketCommandHandler : ICommandHandler<StoreBasketCommand, StoreBasketResult>
+
+public class StoreBasketCommandHandler(IBasketRepository repository)
+    : ICommandHandler<StoreBasketCommand, StoreBasketResult>
 {
-    public async Task<StoreBasketResult> Handle(StoreBasketCommand command, 
+    public async Task<StoreBasketResult> Handle(StoreBasketCommand command,
         CancellationToken cancellationToken)
     {
-        ShoppingCart cart = command.Cart;
+        // store basket into db
+        await repository.StoreBasket(command.Cart, cancellationToken);
 
-        return new StoreBasketResult(cart.UserName);
+        return new StoreBasketResult(command.Cart.UserName);
     }
 }

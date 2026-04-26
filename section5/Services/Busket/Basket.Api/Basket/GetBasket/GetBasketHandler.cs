@@ -1,4 +1,5 @@
-﻿using Basket.Api.Models;
+﻿using Basket.Api.Data;
+using Basket.Api.Models;
 using BuildingBlocks.CQRS;
 
 namespace Basket.Api.Basket.GetBasket;
@@ -7,14 +8,14 @@ public record GetBasketQuery(string UserName) : IQuery<GetBasketResult>;
 
 public record GetBasketResult(ShoppingCart Cart);
 
-public class GetBasketHandler : IQueryHandler<GetBasketQuery, GetBasketResult>
+public class GetBasketHandler(IBasketRepository repository) 
+    : IQueryHandler<GetBasketQuery, GetBasketResult>
 {
-    public async Task<GetBasketResult> Handle(GetBasketQuery request, 
+    public async Task<GetBasketResult> Handle(GetBasketQuery query, 
         CancellationToken cancellationToken)
     {
-        // TODO: get basket form database.
-        //var basket = await repository.GetBasket(query.UserName);
+        var basket = await repository.GetBasket(query.UserName, cancellationToken);
 
-        return new GetBasketResult(new ShoppingCart("JJ"));
+        return new GetBasketResult(basket);
     }
 }

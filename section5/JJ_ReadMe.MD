@@ -20,7 +20,7 @@
         config.AddOpenBehavior(typeof(ValidationBehavior<,>));
     });
     ```
-* Marven - PostgreSQL
+* Marten - DocumentationDB PostgreSQL
 ### Fluent Validations
 * Add nuget package - FluentValidation
 * Add ValidationBehavior, we can use where to limit what type are need to be validated
