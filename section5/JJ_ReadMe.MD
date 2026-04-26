@@ -1,4 +1,26 @@
 ## Common - BuildingBlocks
+### Nuget packages:
+* Carter - endpoint
+    ```
+    ...
+
+    builder.Services.AddCarter();
+
+    ...
+
+    app.MapCarter();
+
+    ```
+* MediatR - middleware for http request pipelines
+    ```
+    var assembly = typeof(Program).Assembly;
+    builder.Services.AddMediatR(config =>
+    {
+        config.RegisterServicesFromAssembly(assembly);
+        config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+    });
+    ```
+* Marven - PostgreSQL
 ### Fluent Validations
 * Add nuget package - FluentValidation
 * Add ValidationBehavior, we can use where to limit what type are need to be validated
