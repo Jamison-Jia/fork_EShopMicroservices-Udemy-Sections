@@ -1,3 +1,34 @@
+## Common - BuildingBlocks
+### Fluent Validations
+* Add nuget package - FluentValidation
+* Add ValidationBehavior, we can use where to limit what type are need to be validated
+* Registry ValidationBehavior in certain project refering BuildingBlocks
+```CSharp
+var assembly = typeof(Program).Assembly;
+builder.Services.AddCarter();
+builder.Services.AddMediatR(config =>
+{
+    config.RegisterServicesFromAssembly(assembly);
+    ...
+    config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+    ...
+});
+builder.Services.AddValidatorsFromAssembly(assembly);
+```
+* Add specific validators in cersion project
+```C#
+public class StoreBasketCommandValidator : AbstractValidator<StoreBasketCommand>
+{
+    public StoreBasketCommandValidator()
+    {
+        RuleFor(x => x.Cart).NotNull().WithMessage("Cart can not be null");
+        RuleFor(x => x.Cart.UserName).NotEmpty().WithMessage("UserName is required");
+    }
+}
+
+```
+
+
 ## CatalogApi
 ### DockerCompose for CatalogApi
 * Add docker support file in CatalogApi.proj

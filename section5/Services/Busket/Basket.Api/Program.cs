@@ -1,4 +1,7 @@
+using Basket.Api.Basket.StoreBasket;
+using BuildingBlocks.Behaviors;
 using Carter;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +14,9 @@ builder.Services.AddCarter();
 builder.Services.AddMediatR(config =>
 {
     config.RegisterServicesFromAssembly(assembly);
+    config.AddOpenBehavior(typeof(ValidationBehavior<,>));
 });
+builder.Services.AddValidatorsFromAssembly(assembly);
 
 var app = builder.Build();
 
