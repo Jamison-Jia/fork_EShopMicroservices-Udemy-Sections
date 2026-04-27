@@ -70,3 +70,11 @@ app.UseExceptionHandler(option => { });
     * Add ConnectionStrings to override the same config in appsetttings.jon in Api.Proj
 * BUild and Run api proj as docker compose
 * Test Apis via Postman
+
+## Docker Compose
+* In VS, right click on the certain proj -> add -> Docker support
+* Add Docker compose support
+* Add addtional cofigs in override docker compose like
+    * ConnectionStrings
+    * Depends_on
+* Run docker compose and check status/logs of containers.
