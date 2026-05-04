@@ -7,7 +7,7 @@ public record OrderId
     {
         Value = value;
     }
-    public static CustomerId Of(Guid value)
+    public static OrderId Of(Guid value)
     {
         ArgumentNullException.ThrowIfNull(value);
         if (value == Guid.Empty)
@@ -15,6 +15,6 @@ public record OrderId
             throw new DomainException("CustomerId cannot be empty.");
         }
 
-        return new CustomerId(value);
+        return new OrderId(value);
     }
 }
