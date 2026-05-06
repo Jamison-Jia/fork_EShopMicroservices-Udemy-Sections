@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Ordering.Application.Data;
 using Ordering.Infrastructure.Data;
 using Ordering.Infrastructure.Data.Interceptors;
 
@@ -18,7 +19,7 @@ public static class DependencyInjection
         var connectionString = configuration.GetConnectionString("Database");
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
-            options.AddInterceptors(sp.GetRequiredService<ISaveChangesInterceptor>());
+            options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
             options.UseSqlServer(connectionString);
         });
 
