@@ -1,8 +1,10 @@
-﻿namespace Ordering.Application.Orders.Queries.GetOrders;
+﻿using BuildingBlocks.Pagination;
 
-public record GetOrdersQuery : IQuery<GetOrderResult>
+namespace Ordering.Application.Orders.Queries.GetOrders;
+
+public record GetOrdersQuery (PaginationRequest PaginationRequest): IQuery<GetOrderResult>
 {
     
 }
 
-public record GetOrderResult(IEnumerable<OrderDto> Orders);
+public record GetOrderResult(PaginatedResult<OrderDto> Orders);
