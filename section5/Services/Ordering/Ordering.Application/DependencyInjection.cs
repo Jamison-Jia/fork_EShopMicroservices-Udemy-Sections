@@ -18,6 +18,7 @@ public static class DependencyInjection
             cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
         });
 
+        services.AddFeatureManagement();
         // Msg consumer should provide the assembly explicitly.
         services.AddMessageBroker(configuration, Assembly.GetExecutingAssembly());
         

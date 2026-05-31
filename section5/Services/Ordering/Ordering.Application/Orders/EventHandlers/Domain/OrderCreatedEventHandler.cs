@@ -12,6 +12,7 @@ public class OrderCreatedEventHandler(IPublishEndpoint publishEndpoint,
 
         if (await featureManager.IsEnabledAsync("OrderFullfilment"))
         {
+            // 继续向下游发送消息，如果下游有订阅的话，自动会继续消费、处理这个消息
             OrderDto orderDto = domainEvent.order.ToOrderDto();
             await publishEndpoint.Publish(orderDto, cancellationToken);
         }
