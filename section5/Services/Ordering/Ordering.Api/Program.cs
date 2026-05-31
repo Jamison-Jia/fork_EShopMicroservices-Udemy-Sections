@@ -1,3 +1,5 @@
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Ordering.Api;
 using Ordering.Application;
 using Ordering.Infrastructure;
@@ -19,6 +21,9 @@ if(app.Environment.IsDevelopment())
     await app.InitialiseDatabaseAsync();
 }
 
-app.MapGet("/", () => "Hello World!");
+app.UseHealthChecks("/health", new HealthCheckOptions()
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
 app.Run();
