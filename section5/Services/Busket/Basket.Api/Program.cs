@@ -77,7 +77,8 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
+// Docker 内部通讯，直接用http，禁用https重定向
+// app.UseHttpsRedirection();
 
 app.MapCarter();
 
