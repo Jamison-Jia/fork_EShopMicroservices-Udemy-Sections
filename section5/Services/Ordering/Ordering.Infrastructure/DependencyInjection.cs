@@ -20,7 +20,13 @@ public static class DependencyInjection
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
-            options.UseSqlServer(connectionString);
+            options.UseSqlServer(connectionString, sqlOptions =>
+            {
+                sqlOptions.EnableRetryOnFailure(
+                    maxRetryCount: 10,
+                    maxRetryDelay: TimeSpan.FromSeconds(30),
+                    errorNumbersToAdd: null);
+            });
         });
 
         services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
